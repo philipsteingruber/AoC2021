@@ -20,8 +20,48 @@ def part1(input_data):
     return gamma * epsilon
 
 
+def oxygen_generator(input_data):
+    possible_values = input_data.copy()
+
+    for index in range(len(input_data[0])):
+        digits_in_order = []
+        for inner_index in range(len(input_data[0])):
+            digits_in_order.append(''.join([x[inner_index] for x in possible_values]))
+
+        counter = Counter(digits_in_order[index])
+        if counter.most_common(2)[0][1] == counter.most_common(2)[1][1]:
+            most_common_digit = '1'
+        else:
+            most_common_digit = counter.most_common(1)[0][0]
+        possible_values = [x for x in possible_values if x[index] == most_common_digit]
+        if len(possible_values) == 1:
+            break
+
+    return int(possible_values[0], 2)
+
+
+def co2_scrubber(input_data):
+    possible_values = input_data.copy()
+
+    for index in range(len(input_data[0])):
+        digits_in_order = []
+        for inner_index in range(len(input_data[0])):
+            digits_in_order.append(''.join([x[inner_index] for x in possible_values]))
+
+        counter = Counter(digits_in_order[index])
+        if counter.most_common(2)[0][1] == counter.most_common(2)[1][1]:
+            least_common_digit = '0'
+        else:
+            least_common_digit = counter.most_common(2)[1][0]
+        possible_values = [x for x in possible_values if x[index] == least_common_digit]
+        if len(possible_values) == 1:
+            break
+
+    return int(possible_values[0], 2)
+
+
 def part2(input_data):
-    pass
+    return oxygen_generator(input_data) * co2_scrubber(input_data)
 
 
 if __name__ == '__main__':
