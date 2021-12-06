@@ -1,14 +1,7 @@
 def part1(numbers, bingo_boards):
     called_numbers = 0
-    called_numbers_list = []
-    a = bingo_boards[0][0]
-    b = bingo_boards[0][1]
-    c = bingo_boards[0][2]
-    d = bingo_boards[0][3]
-    e = bingo_boards[0][4]
     for number in numbers:
         called_numbers += 1
-        called_numbers_list.append(number)
         for i, bingo_board in enumerate(bingo_boards):
             bingo_boards[i] = mark_number(bingo_board, number)
         if called_numbers >= 5: # Impossible to win on the first 4 numbers, since all lines are 5 numbers long
