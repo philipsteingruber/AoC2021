@@ -30,7 +30,6 @@ def mark_number(bingo_board, number):
 
 def part2(numbers, bingo_boards):
     bingo_boards_copy = bingo_boards.copy()
-    last_called_number = -1
     for number in numbers:
         for i, bingo_board in enumerate(bingo_boards_copy):
             bingo_boards[i] = mark_number(bingo_board, number)
