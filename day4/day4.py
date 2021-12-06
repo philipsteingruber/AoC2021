@@ -4,7 +4,7 @@ def part1(numbers, bingo_boards):
         called_numbers += 1
         for i, bingo_board in enumerate(bingo_boards):
             bingo_boards[i] = mark_number(bingo_board, number)
-        if called_numbers >= 5: # Impossible to win on the first 4 numbers, since all lines are 5 numbers long
+        if called_numbers >= 5:  # Impossible to win on the first 4 numbers, since all lines are 5 numbers long
             for bingo_board in bingo_boards:
                 winning_line_or_none = winning_line(bingo_board)
                 if winning_line_or_none:
@@ -14,9 +14,8 @@ def part1(numbers, bingo_boards):
 def unmarked_numbers(bingo_board):
     unmarked_numbers_list = []
     for line in bingo_board:
-        unmarked_numbers_list.extend([x[0] for x in line if x[1] == False])
+        unmarked_numbers_list.extend([x[0] for x in line if x[1] is False])
     return unmarked_numbers_list
-
 
 
 def mark_number(bingo_board, number):
@@ -30,7 +29,17 @@ def mark_number(bingo_board, number):
 
 
 def part2(numbers, bingo_boards):
-    pass
+    bingo_boards_copy = bingo_boards.copy()
+    last_called_number = -1
+    for number in numbers:
+        for i, bingo_board in enumerate(bingo_boards_copy):
+            bingo_boards[i] = mark_number(bingo_board, number)
+        for bingo_board in bingo_boards_copy:
+            winning_line_or_none = winning_line(bingo_board)
+            if winning_line_or_none:
+                if len(bingo_boards_copy) == 1:
+                    return sum(unmarked_numbers(bingo_boards_copy[0])) * number
+                bingo_boards_copy.remove(bingo_board)
 
 
 def winning_line(bingo_board):
@@ -51,7 +60,6 @@ def winning_line(bingo_board):
 if __name__ == '__main__':
     bingo_boards = []
     current_board = []
-    # bingo_board_line_pattern = re.compile(r'\d+ +\d+ +\d+ +\d+ +\d+')
 
     with open('input.txt') as file:
         numbers = list(map(int, file.readline().split(',')))
