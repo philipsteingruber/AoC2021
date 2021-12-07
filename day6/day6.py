@@ -11,12 +11,13 @@ def calculate_fish_growth(fish_timers, days):
     while days_remaining > 0:
         new_buckets = defaultdict(int)
 
-        zeroes = buckets[0]
-
         for i in range(1, 9):
             new_buckets[i-1] = buckets[i]
+
+        zeroes = buckets[0]
         new_buckets[6] += zeroes
         new_buckets[8] += zeroes
+
         buckets = new_buckets
         days_remaining -= 1
 
