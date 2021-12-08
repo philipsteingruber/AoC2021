@@ -1,5 +1,5 @@
-import timeit
 from collections import defaultdict
+
 
 def calculate_fish_growth(fish_timers, days):
     days_remaining = days
