@@ -1,5 +1,7 @@
 import math
 
+fuel_usages_by_distance = {}
+
 
 def part1(crabs):
     best_fuel_used = float('inf')
@@ -18,7 +20,12 @@ def part2(crabs):
 
 
 def calculate_fuel_usage(distance):
-    return sum(range(1, int(distance)+1))
+    try:
+        return fuel_usages_by_distance[int(distance)]
+    except KeyError:
+        fuel_usage = sum(range(1, int(distance)+1))
+        fuel_usages_by_distance[int(distance)] = fuel_usage
+        return fuel_usage
 
 
 if __name__ == '__main__':
